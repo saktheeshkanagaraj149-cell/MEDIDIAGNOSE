@@ -1,0 +1,650 @@
+{
+  "Logistic_Regression": {
+    "model_name": "Logistic_Regression",
+    "diseases": {
+      "Diabetes": {
+        "accuracy": 0.932,
+        "precision": 0.9349,
+        "recall": 0.8271,
+        "f1_score": 0.8777,
+        "roc_auc": 0.0224,
+        "confusion_matrix": [
+          [
+            688,
+            17
+          ],
+          [
+            51,
+            244
+          ]
+        ]
+      },
+      "Heart_Disease": {
+        "accuracy": 0.92,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.5174,
+        "confusion_matrix": [
+          [
+            920,
+            0
+          ],
+          [
+            80,
+            0
+          ]
+        ]
+      },
+      "Thyroid": {
+        "accuracy": 0.779,
+        "precision": 0.75,
+        "recall": 0.0135,
+        "f1_score": 0.0264,
+        "roc_auc": 0.4681,
+        "confusion_matrix": [
+          [
+            776,
+            1
+          ],
+          [
+            220,
+            3
+          ]
+        ]
+      },
+      "Hypertension": {
+        "accuracy": 0.968,
+        "precision": 0.9571,
+        "recall": 0.9455,
+        "f1_score": 0.9512,
+        "roc_auc": 0.6349,
+        "confusion_matrix": [
+          [
+            656,
+            14
+          ],
+          [
+            18,
+            312
+          ]
+        ]
+      },
+      "Chronic_Kidney_Disease": {
+        "accuracy": 0.876,
+        "precision": 0.5556,
+        "recall": 0.0794,
+        "f1_score": 0.1389,
+        "roc_auc": 0.518,
+        "confusion_matrix": [
+          [
+            866,
+            8
+          ],
+          [
+            116,
+            10
+          ]
+        ]
+      },
+      "Liver_Disease": {
+        "accuracy": 0.943,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.5058,
+        "confusion_matrix": [
+          [
+            943,
+            0
+          ],
+          [
+            57,
+            0
+          ]
+        ]
+      },
+      "Anemia": {
+        "accuracy": 0.907,
+        "precision": 0.7143,
+        "recall": 0.1471,
+        "f1_score": 0.2439,
+        "roc_auc": 0.5265,
+        "confusion_matrix": [
+          [
+            892,
+            6
+          ],
+          [
+            87,
+            15
+          ]
+        ]
+      },
+      "Asthma": {
+        "accuracy": 0.92,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.5078,
+        "confusion_matrix": [
+          [
+            920,
+            1
+          ],
+          [
+            79,
+            0
+          ]
+        ]
+      },
+      "Pneumonia": {
+        "accuracy": 0.961,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.5256,
+        "confusion_matrix": [
+          [
+            961,
+            0
+          ],
+          [
+            39,
+            0
+          ]
+        ]
+      },
+      "Arthritis": {
+        "accuracy": 0.884,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.5966,
+        "confusion_matrix": [
+          [
+            884,
+            7
+          ],
+          [
+            109,
+            0
+          ]
+        ]
+      },
+      "Depression": {
+        "accuracy": 0.901,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.5169,
+        "confusion_matrix": [
+          [
+            901,
+            0
+          ],
+          [
+            99,
+            0
+          ]
+        ]
+      },
+      "Allergies": {
+        "accuracy": 0.908,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.5374,
+        "confusion_matrix": [
+          [
+            908,
+            0
+          ],
+          [
+            92,
+            0
+          ]
+        ]
+      }
+    },
+    "averages": {
+      "avg_accuracy": 0.9082,
+      "avg_precision": 0.326,
+      "avg_recall": 0.1677,
+      "avg_f1_score": 0.1865,
+      "avg_roc_auc": 0.4898
+    }
+  },
+  "Random_Forest": {
+    "model_name": "Random_Forest",
+    "diseases": {
+      "Diabetes": {
+        "accuracy": 0.935,
+        "precision": 0.9228,
+        "recall": 0.8508,
+        "f1_score": 0.8854,
+        "roc_auc": 0.019,
+        "confusion_matrix": [
+          [
+            684,
+            21
+          ],
+          [
+            44,
+            251
+          ]
+        ]
+      },
+      "Heart_Disease": {
+        "accuracy": 0.92,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.5162,
+        "confusion_matrix": [
+          [
+            920,
+            0
+          ],
+          [
+            80,
+            0
+          ]
+        ]
+      },
+      "Thyroid": {
+        "accuracy": 0.811,
+        "precision": 0.7576,
+        "recall": 0.2242,
+        "f1_score": 0.346,
+        "roc_auc": 0.4231,
+        "confusion_matrix": [
+          [
+            761,
+            16
+          ],
+          [
+            173,
+            50
+          ]
+        ]
+      },
+      "Hypertension": {
+        "accuracy": 0.98,
+        "precision": 0.9613,
+        "recall": 0.9788,
+        "f1_score": 0.97,
+        "roc_auc": 0.6417,
+        "confusion_matrix": [
+          [
+            657,
+            13
+          ],
+          [
+            7,
+            323
+          ]
+        ]
+      },
+      "Chronic_Kidney_Disease": {
+        "accuracy": 0.872,
+        "precision": 0.25,
+        "recall": 0.0079,
+        "f1_score": 0.0154,
+        "roc_auc": 0.472,
+        "confusion_matrix": [
+          [
+            871,
+            3
+          ],
+          [
+            125,
+            1
+          ]
+        ]
+      },
+      "Liver_Disease": {
+        "accuracy": 0.943,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.4982,
+        "confusion_matrix": [
+          [
+            943,
+            0
+          ],
+          [
+            57,
+            0
+          ]
+        ]
+      },
+      "Anemia": {
+        "accuracy": 0.904,
+        "precision": 0.8,
+        "recall": 0.0784,
+        "f1_score": 0.1429,
+        "roc_auc": 0.5201,
+        "confusion_matrix": [
+          [
+            896,
+            2
+          ],
+          [
+            94,
+            8
+          ]
+        ]
+      },
+      "Asthma": {
+        "accuracy": 0.921,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.5067,
+        "confusion_matrix": [
+          [
+            921,
+            0
+          ],
+          [
+            79,
+            0
+          ]
+        ]
+      },
+      "Pneumonia": {
+        "accuracy": 0.961,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.5159,
+        "confusion_matrix": [
+          [
+            961,
+            0
+          ],
+          [
+            39,
+            0
+          ]
+        ]
+      },
+      "Arthritis": {
+        "accuracy": 0.891,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.5213,
+        "confusion_matrix": [
+          [
+            891,
+            0
+          ],
+          [
+            109,
+            0
+          ]
+        ]
+      },
+      "Depression": {
+        "accuracy": 0.901,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.4993,
+        "confusion_matrix": [
+          [
+            901,
+            0
+          ],
+          [
+            99,
+            0
+          ]
+        ]
+      },
+      "Allergies": {
+        "accuracy": 0.908,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.5597,
+        "confusion_matrix": [
+          [
+            908,
+            0
+          ],
+          [
+            92,
+            0
+          ]
+        ]
+      }
+    },
+    "averages": {
+      "avg_accuracy": 0.9122,
+      "avg_precision": 0.3076,
+      "avg_recall": 0.1783,
+      "avg_f1_score": 0.1966,
+      "avg_roc_auc": 0.4744
+    }
+  },
+  "XGBoost": {
+    "model_name": "XGBoost",
+    "diseases": {
+      "Diabetes": {
+        "accuracy": 0.94,
+        "precision": 0.8956,
+        "recall": 0.9017,
+        "f1_score": 0.8986,
+        "roc_auc": 0.0154,
+        "confusion_matrix": [
+          [
+            674,
+            31
+          ],
+          [
+            29,
+            266
+          ]
+        ]
+      },
+      "Heart_Disease": {
+        "accuracy": 0.92,
+        "precision": 0.5,
+        "recall": 0.025,
+        "f1_score": 0.0476,
+        "roc_auc": 0.5224,
+        "confusion_matrix": [
+          [
+            918,
+            2
+          ],
+          [
+            78,
+            2
+          ]
+        ]
+      },
+      "Thyroid": {
+        "accuracy": 0.84,
+        "precision": 0.6721,
+        "recall": 0.5516,
+        "f1_score": 0.6059,
+        "roc_auc": 0.4608,
+        "confusion_matrix": [
+          [
+            717,
+            60
+          ],
+          [
+            100,
+            123
+          ]
+        ]
+      },
+      "Hypertension": {
+        "accuracy": 0.98,
+        "precision": 0.9586,
+        "recall": 0.9818,
+        "f1_score": 0.9701,
+        "roc_auc": 0.5894,
+        "confusion_matrix": [
+          [
+            656,
+            14
+          ],
+          [
+            6,
+            324
+          ]
+        ]
+      },
+      "Chronic_Kidney_Disease": {
+        "accuracy": 0.873,
+        "precision": 0.4898,
+        "recall": 0.1905,
+        "f1_score": 0.2743,
+        "roc_auc": 0.5369,
+        "confusion_matrix": [
+          [
+            849,
+            25
+          ],
+          [
+            102,
+            24
+          ]
+        ]
+      },
+      "Liver_Disease": {
+        "accuracy": 0.941,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.5103,
+        "confusion_matrix": [
+          [
+            941,
+            2
+          ],
+          [
+            57,
+            0
+          ]
+        ]
+      },
+      "Anemia": {
+        "accuracy": 0.907,
+        "precision": 0.5957,
+        "recall": 0.2745,
+        "f1_score": 0.3758,
+        "roc_auc": 0.5282,
+        "confusion_matrix": [
+          [
+            879,
+            19
+          ],
+          [
+            74,
+            28
+          ]
+        ]
+      },
+      "Asthma": {
+        "accuracy": 0.921,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.5087,
+        "confusion_matrix": [
+          [
+            921,
+            0
+          ],
+          [
+            79,
+            0
+          ]
+        ]
+      },
+      "Pneumonia": {
+        "accuracy": 0.961,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.5466,
+        "confusion_matrix": [
+          [
+            961,
+            0
+          ],
+          [
+            39,
+            0
+          ]
+        ]
+      },
+      "Arthritis": {
+        "accuracy": 0.883,
+        "precision": 0.25,
+        "recall": 0.0367,
+        "f1_score": 0.064,
+        "roc_auc": 0.5453,
+        "confusion_matrix": [
+          [
+            879,
+            12
+          ],
+          [
+            105,
+            4
+          ]
+        ]
+      },
+      "Depression": {
+        "accuracy": 0.902,
+        "precision": 1.0,
+        "recall": 0.0101,
+        "f1_score": 0.02,
+        "roc_auc": 0.5253,
+        "confusion_matrix": [
+          [
+            901,
+            0
+          ],
+          [
+            98,
+            1
+          ]
+        ]
+      },
+      "Allergies": {
+        "accuracy": 0.908,
+        "precision": 0.5,
+        "recall": 0.0217,
+        "f1_score": 0.0417,
+        "roc_auc": 0.5263,
+        "confusion_matrix": [
+          [
+            906,
+            2
+          ],
+          [
+            90,
+            2
+          ]
+        ]
+      }
+    },
+    "averages": {
+      "avg_accuracy": 0.9147,
+      "avg_precision": 0.4885,
+      "avg_recall": 0.2495,
+      "avg_f1_score": 0.2748,
+      "avg_roc_auc": 0.4846
+    }
+  }
+}

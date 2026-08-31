@@ -1,0 +1,4 @@
+Model,Avg Accuracy,Avg Precision,Avg Recall,Avg F1,Avg ROC-AUC
+Logistic_Regression,0.9082,0.326,0.1677,0.1865,0.4898
+Random_Forest,0.9122,0.3076,0.1783,0.1966,0.4744
+XGBoost,0.9147,0.4885,0.2495,0.2748,0.4846

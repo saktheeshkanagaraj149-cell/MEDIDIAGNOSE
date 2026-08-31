@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediDiagnose - Multi-Disease Prediction System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="bg-particles"></div>
+
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="nav-icon">&#9764;</span>
+            <span class="nav-title">MediDiagnose</span>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="nav-link active" onclick="showSection('predict')">Predict</a>
+            <a href="#" class="nav-link" onclick="showSection('model-info')">Model Info</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="hero">
+            <h1 class="hero-title">Multi-Disease Prediction</h1>
+            <p class="hero-subtitle">Enter patient data below to predict risk across 12 diseases using AI-powered analysis</p>
+        </div>
+
+        <div id="predict-section">
+            <form id="prediction-form" class="form-card">
+                <div class="form-grid">
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <span class="section-icon">&#128202;</span>
+                            Demographics & Vitals
+                        </h3>
+                        <div class="input-group">
+                            <label>Age</label>
+                            <input type="number" name="age" value="40" min="1" max="120" step="1">
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>Gender</label>
+                                <select name="gender">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Smoking Status</label>
+                                <select name="smoking_status">
+                                    <option value="never">Never</option>
+                                    <option value="former">Former</option>
+                                    <option value="current">Current</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>BMI</label>
+                                <input type="number" name="bmi" value="25" min="10" max="70" step="0.1">
+                            </div>
+                            <div class="input-group">
+                                <label>Heart Rate</label>
+                                <input type="number" name="heart_rate" value="75" min="30" max="200" step="1">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>Oxygen Saturation (%)</label>
+                                <input type="number" name="oxygen_saturation" value="97" min="60" max="100" step="1">
+                            </div>
+                            <div class="input-group">
+                                <label>Respiratory Rate</label>
+                                <input type="number" name="respiratory_rate" value="16" min="8" max="50" step="1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <span class="section-icon">&#129657;</span>
+                            Blood Pressure & Cardiac
+                        </h3>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>Systolic BP</label>
+                                <input type="number" name="systolic_bp" value="120" min="60" max="250" step="1">
+                            </div>
+                            <div class="input-group">
+                                <label>Diastolic BP</label>
+                                <input type="number" name="diastolic_bp" value="80" min="30" max="150" step="1">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>Cholesterol (mg/dL)</label>
+                                <input type="number" name="cholesterol_total" value="200" min="80" max="500" step="1">
+                            </div>
+                            <div class="input-group">
+                                <label>HDL (mg/dL)</label>
+                                <input type="number" name="hdl_cholesterol" value="50" min="10" max="150" step="1">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>LDL (mg/dL)</label>
+                                <input type="number" name="ldl_cholesterol" value="120" min="20" max="400" step="1">
+                            </div>
+                            <div class="input-group">
+                                <label>Triglycerides (mg/dL)</label>
+                                <input type="number" name="triglycerides" value="150" min="30" max="800" step="1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <span class="section-icon">&#129514;</span>
+                            Blood Tests
+                        </h3>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>Blood Glucose (mg/dL)</label>
+                                <input type="number" name="blood_glucose" value="100" min="30" max="500" step="1">
+                            </div>
+                            <div class="input-group">
+                                <label>Hemoglobin (g/dL)</label>
+                                <input type="number" name="hemoglobin" value="14" min="4" max="22" step="0.1">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>WBC Count (x10^3/uL)</label>
+                                <input type="number" name="wbc_count" value="7" min="0.5" max="30" step="0.1">
+                            </div>
+                            <div class="input-group">
+                                <label>Platelet Count (x10^3/uL)</label>
+                                <input type="number" name="platelet_count" value="250" min="20" max="800" step="1">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>Creatinine (mg/dL)</label>
+                                <input type="number" name="creatinine" value="1.0" min="0.1" max="10" step="0.1">
+                            </div>
+                            <div class="input-group">
+                                <label>Blood Urea (mg/dL)</label>
+                                <input type="number" name="blood_urea" value="15" min="3" max="100" step="1">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>TSH Level (mIU/L)</label>
+                                <input type="number" name="tsh_level" value="2.5" min="0.01" max="20" step="0.1">
+                            </div>
+                            <div class="input-group">
+                                <label>ALT Level (U/L)</label>
+                                <input type="number" name="alt_level" value="30" min="3" max="300" step="1">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label>AST Level (U/L)</label>
+                                <input type="number" name="ast_level" value="28" min="3" max="300" step="1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <span class="section-icon">&#9888;</span>
+                            Symptoms (Check if present)
+                        </h3>
+                        <div class="symptoms-grid">
+                            <label class="symptom-check"><input type="checkbox" name="fatigue" value="1"> Fatigue</label>
+                            <label class="symptom-check"><input type="checkbox" name="weight_loss" value="1"> Weight Loss</label>
+                            <label class="symptom-check"><input type="checkbox" name="weight_gain" value="1"> Weight Gain</label>
+                            <label class="symptom-check"><input type="checkbox" name="frequent_urination" value="1"> Frequent Urination</label>
+                            <label class="symptom-check"><input type="checkbox" name="excessive_thirst" value="1"> Excessive Thirst</label>
+                            <label class="symptom-check"><input type="checkbox" name="blurred_vision" value="1"> Blurred Vision</label>
+                            <label class="symptom-check"><input type="checkbox" name="chest_pain" value="1"> Chest Pain</label>
+                            <label class="symptom-check"><input type="checkbox" name="shortness_of_breath" value="1"> Shortness of Breath</label>
+                            <label class="symptom-check"><input type="checkbox" name="palpitations" value="1"> Palpitations</label>
+                            <label class="symptom-check"><input type="checkbox" name="swelling_legs" value="1"> Swelling Legs</label>
+                            <label class="symptom-check"><input type="checkbox" name="joint_pain" value="1"> Joint Pain</label>
+                            <label class="symptom-check"><input type="checkbox" name="stiffness" value="1"> Stiffness</label>
+                            <label class="symptom-check"><input type="checkbox" name="cough" value="1"> Cough</label>
+                            <label class="symptom-check"><input type="checkbox" name="fever" value="1"> Fever</label>
+                            <label class="symptom-check"><input type="checkbox" name="night_sweats" value="1"> Night Sweats</label>
+                            <label class="symptom-check"><input type="checkbox" name="mood_swings" value="1"> Mood Swings</label>
+                            <label class="symptom-check"><input type="checkbox" name="insomnia" value="1"> Insomnia</label>
+                            <label class="symptom-check"><input type="checkbox" name="appetite_loss" value="1"> Appetite Loss</label>
+                            <label class="symptom-check"><input type="checkbox" name="headache" value="1"> Headache</label>
+                            <label class="symptom-check"><input type="checkbox" name="dizziness" value="1"> Dizziness</label>
+                            <label class="symptom-check"><input type="checkbox" name="numbness" value="1"> Numbness</label>
+                            <label class="symptom-check"><input type="checkbox" name="skin_rash" value="1"> Skin Rash</label>
+                            <label class="symptom-check"><input type="checkbox" name="itching" value="1"> Itching</label>
+                            <label class="symptom-check"><input type="checkbox" name="dry_skin" value="1"> Dry Skin</label>
+                            <label class="symptom-check"><input type="checkbox" name="hair_loss" value="1"> Hair Loss</label>
+                            <label class="symptom-check"><input type="checkbox" name="sore_throat" value="1"> Sore Throat</label>
+                            <label class="symptom-check"><input type="checkbox" name="nausea" value="1"> Nausea</label>
+                            <label class="symptom-check"><input type="checkbox" name="vomiting" value="1"> Vomiting</label>
+                            <label class="symptom-check"><input type="checkbox" name="abdominal_pain" value="1"> Abdominal Pain</label>
+                            <label class="symptom-check"><input type="checkbox" name="diarrhea" value="1"> Diarrhea</label>
+                            <label class="symptom-check"><input type="checkbox" name="constipation" value="1"> Constipation</label>
+                            <label class="symptom-check"><input type="checkbox" name="frequent_infections" value="1"> Frequent Infections</label>
+                            <label class="symptom-check"><input type="checkbox" name="easy_bruising" value="1"> Easy Bruising</label>
+                            <label class="symptom-check"><input type="checkbox" name="swollen_lymph_nodes" value="1"> Swollen Lymph Nodes</label>
+                            <label class="symptom-check"><input type="checkbox" name="anxiety" value="1"> Anxiety</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" id="predict-btn" class="btn-primary">
+                        <span class="btn-text">Run Prediction</span>
+                        <span class="btn-spinner" style="display:none;">Analyzing...</span>
+                    </button>
+                    <button type="button" class="btn-secondary" onclick="resetForm()">Reset</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="model-info-section" style="display:none;">
+            <div class="model-info-card">
+                <h3>Model Comparison</h3>
+                <div id="model-comparison-content">Loading...</div>
+            </div>
+        </div>
+
+        <div id="results-section" style="display:none;">
+            <div class="results-header">
+                <h2 class="results-title">Prediction Results</h2>
+                <p class="results-subtitle">Ranked by disease probability (highest first)</p>
+            </div>
+
+            <div id="top-risk-alert" class="risk-alert" style="display:none;">
+                <span class="alert-icon">&#9888;</span>
+                <div class="alert-content">
+                    <strong id="top-risk-name"></strong>
+                    <span id="top-risk-text"></span>
+                </div>
+            </div>
+
+            <div class="charts-row">
+                <div class="chart-card chart-wide">
+                    <h3 class="chart-title">Disease Probability Overview</h3>
+                    <div class="chart-container"><canvas id="barChart"></canvas></div>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">Risk Distribution</h3>
+                    <div class="chart-container chart-square"><canvas id="doughnutChart"></canvas></div>
+                </div>
+            </div>
+
+            <div class="charts-row">
+                <div class="chart-card">
+                    <h3 class="chart-title">Top 5 Disease Risk Profile</h3>
+                    <div class="chart-container chart-square"><canvas id="radarChart"></canvas></div>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">Probability vs Threshold</h3>
+                    <div class="chart-container chart-square"><canvas id="polarChart"></canvas></div>
+                </div>
+            </div>
+
+            <div id="results-container" class="results-grid"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>MediDiagnose v1.0 &mdash; Multi-Disease Prediction System</p>
+        <p class="disclaimer">For educational purposes only. Not a substitute for professional medical advice.</p>
+    </footer>
+
+    <script>
+        let barChartInstance = null;
+        let doughnutChartInstance = null;
+        let radarChartInstance = null;
+        let polarChartInstance = null;
+        let modelChartInstance = null;
+
+        document.getElementById("prediction-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            runPrediction();
+        });
+
+        function showSection(section) {
+            document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
+            event.target.classList.add("active");
+            document.getElementById("predict-section").style.display = section === "predict" ? "block" : "none";
+            document.getElementById("model-info-section").style.display = section === "model-info" ? "block" : "none";
+            if (section === "model-info") loadModelInfo();
+        }
+
+        function collectFormData() {
+            const form = document.getElementById("prediction-form");
+            const formData = {};
+            const inputs = form.querySelectorAll("input, select");
+            inputs.forEach(input => {
+                if (input.type === "checkbox") {
+                    formData[input.name] = input.checked ? 1 : 0;
+                } else if (input.type === "number") {
+                    formData[input.name] = parseFloat(input.value) || 0;
+                } else {
+                    formData[input.name] = input.value;
+                }
+            });
+            return formData;
+        }
+
+        async function runPrediction() {
+            const btn = document.getElementById("predict-btn");
+            btn.querySelector(".btn-text").style.display = "none";
+            btn.querySelector(".btn-spinner").style.display = "inline";
+            btn.disabled = true;
+
+            try {
+                const data = collectFormData();
+                const resp = await fetch("/predict", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(data)
+                });
+                const result = await resp.json();
+                if (result.success) {
+                    displayResults(result.results);
+                } else {
+                    alert("Error: " + result.error);
+                }
+            } catch(err) {
+                alert("Request failed: " + err.message);
+            } finally {
+                btn.querySelector(".btn-text").style.display = "inline";
+                btn.querySelector(".btn-spinner").style.display = "none";
+                btn.disabled = false;
+            }
+        }
+
+        function getBarColors(results) {
+            return results.map(r =>
+                r.probability > 70 ? "rgba(244, 67, 54, 0.85)" :
+                r.probability > 40 ? "rgba(255, 152, 0, 0.85)" :
+                r.probability > 20 ? "rgba(255, 193, 7, 0.7)" :
+                "rgba(76, 175, 80, 0.6)"
+            );
+        }
+
+        function getBarBorders(results) {
+            return results.map(r =>
+                r.probability > 70 ? "#f44336" :
+                r.probability > 40 ? "#ff9800" :
+                r.probability > 20 ? "#ffc107" : "#4caf50"
+            );
+        }
+
+        function renderBarChart(results) {
+            const ctx = document.getElementById("barChart").getContext("2d");
+            if (barChartInstance) barChartInstance.destroy();
+
+            const labels = results.map(r => r.disease.replace(/_/g, " "));
+            const data = results.map(r => r.probability);
+            const colors = getBarColors(results);
+            const borders = getBarBorders(results);
+
+            barChartInstance = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: "Probability (%)",
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: borders,
+                        borderWidth: 2,
+                        borderRadius: 6,
+                        barPercentage: 0.7
+                    }]
+                },
+                options: {
+                    indexAxis: "y",
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: "#111640",
+                            titleColor: "#00d4ff",
+                            bodyColor: "#e8ecf4",
+                            borderColor: "#1e2a5e",
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            padding: 12,
+                            callbacks: {
+                                label: ctx => `${ctx.parsed.x.toFixed(1)}% probability`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            min: 0, max: 100,
+                            grid: { color: "rgba(30,42,94,0.5)" },
+                            ticks: { color: "#8892b0", font: { size: 11 } },
+                            title: { display: true, text: "Probability (%)", color: "#8892b0" }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { color: "#e8ecf4", font: { size: 11, weight: "500" } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderDoughnutChart(results) {
+            const ctx = document.getElementById("doughnutChart").getContext("2d");
+            if (doughnutChartInstance) doughnutChartInstance.destroy();
+
+            let high = 0, medium = 0, low = 0;
+            results.forEach(r => {
+                if (r.risk_level === "High") high++;
+                else if (r.risk_level === "Medium") medium++;
+                else low++;
+            });
+
+            doughnutChartInstance = new Chart(ctx, {
+                type: "doughnut",
+                data: {
+                    labels: ["High Risk", "Medium Risk", "Low Risk"],
+                    datasets: [{
+                        data: [high, medium, low],
+                        backgroundColor: [
+                            "rgba(244, 67, 54, 0.85)",
+                            "rgba(255, 152, 0, 0.85)",
+                            "rgba(76, 175, 80, 0.7)"
+                        ],
+                        borderColor: ["#f44336", "#ff9800", "#4caf50"],
+                        borderWidth: 2,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: "60%",
+                    plugins: {
+                        legend: {
+                            position: "bottom",
+                            labels: { color: "#e8ecf4", padding: 16, font: { size: 12 } }
+                        },
+                        tooltip: {
+                            backgroundColor: "#111640",
+                            titleColor: "#00d4ff",
+                            bodyColor: "#e8ecf4",
+                            borderColor: "#1e2a5e",
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: ctx => ` ${ctx.label}: ${ctx.parsed} disease${ctx.parsed !== 1 ? "s" : ""}`
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderRadarChart(results) {
+            const ctx = document.getElementById("radarChart").getContext("2d");
+            if (radarChartInstance) radarChartInstance.destroy();
+
+            const top5 = results.slice(0, 5);
+            const labels = top5.map(r => r.disease.replace(/_/g, " "));
+            const data = top5.map(r => r.probability);
+
+            radarChartInstance = new Chart(ctx, {
+                type: "radar",
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: "Risk Probability",
+                        data: data,
+                        backgroundColor: "rgba(0, 212, 255, 0.15)",
+                        borderColor: "#00d4ff",
+                        borderWidth: 2,
+                        pointBackgroundColor: data.map(v =>
+                            v > 70 ? "#f44336" : v > 40 ? "#ff9800" : "#4caf50"
+                        ),
+                        pointBorderColor: "#fff",
+                        pointRadius: 5,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            min: 0, max: 100,
+                            beginAtZero: true,
+                            grid: { color: "rgba(30,42,94,0.6)" },
+                            angleLines: { color: "rgba(30,42,94,0.4)" },
+                            pointLabels: { color: "#e8ecf4", font: { size: 11, weight: "500" } },
+                            ticks: { color: "#5a6380", backdropColor: "transparent", stepSize: 25 }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: "#111640",
+                            titleColor: "#00d4ff",
+                            bodyColor: "#e8ecf4",
+                            borderColor: "#1e2a5e",
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: ctx => `${ctx.parsed.r.toFixed(1)}% probability`
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderPolarChart(results) {
+            const ctx = document.getElementById("polarChart").getContext("2d");
+            if (polarChartInstance) polarChartInstance.destroy();
+
+            const top6 = results.slice(0, 6);
+            const labels = top6.map(r => r.disease.replace(/_/g, " "));
+            const data = top6.map(r => r.probability);
+            const thresholdLine = Array(6).fill(50);
+
+            polarChartInstance = new Chart(ctx, {
+                type: "polarArea",
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: [
+                            "rgba(244, 67, 54, 0.6)",
+                            "rgba(255, 152, 0, 0.6)",
+                            "rgba(255, 193, 7, 0.6)",
+                            "rgba(33, 150, 243, 0.5)",
+                            "rgba(156, 39, 176, 0.5)",
+                            "rgba(0, 150, 136, 0.5)"
+                        ],
+                        borderColor: [
+                            "#f44336", "#ff9800", "#ffc107",
+                            "#2196f3", "#9c27b0", "#009688"
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            min: 0, max: 100,
+                            grid: { color: "rgba(30,42,94,0.5)" },
+                            ticks: { color: "#5a6380", backdropColor: "transparent", stepSize: 25 }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: "bottom",
+                            labels: { color: "#e8ecf4", padding: 10, font: { size: 10 } }
+                        },
+                        tooltip: {
+                            backgroundColor: "#111640",
+                            titleColor: "#00d4ff",
+                            bodyColor: "#e8ecf4",
+                            borderColor: "#1e2a5e",
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: ctx => ` ${ctx.label}: ${ctx.parsed.r.toFixed(1)}%`
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function destroyCharts() {
+            [barChartInstance, doughnutChartInstance, radarChartInstance, polarChartInstance].forEach(c => {
+                if (c) c.destroy();
+            });
+            barChartInstance = null;
+            doughnutChartInstance = null;
+            radarChartInstance = null;
+            polarChartInstance = null;
+        }
+
+        function displayResults(results) {
+            const section = document.getElementById("results-section");
+            const container = document.getElementById("results-container");
+            const topAlert = document.getElementById("top-risk-alert");
+
+            section.style.display = "block";
+            destroyCharts();
+
+            if (results[0].probability > 40) {
+                topAlert.style.display = "flex";
+                document.getElementById("top-risk-name").textContent = results[0].disease.replace(/_/g, " ");
+                document.getElementById("top-risk-text").textContent =
+                    ` Highest risk: ${results[0].probability}% probability`;
+            } else {
+                topAlert.style.display = "none";
+            }
+
+            setTimeout(() => {
+                renderBarChart(results);
+                renderDoughnutChart(results);
+                renderRadarChart(results);
+                renderPolarChart(results);
+            }, 100);
+
+            container.innerHTML = "";
+            results.forEach((r, idx) => {
+                const card = document.createElement("div");
+                card.className = "result-card";
+                card.style.animationDelay = `${idx * 0.05}s`;
+
+                const barColor = r.probability > 70 ? "#f44336" :
+                                 r.probability > 40 ? "#ff9800" :
+                                 r.probability > 20 ? "#ffc107" : "#4caf50";
+
+                card.innerHTML = `
+                    <div class="result-header">
+                        <span class="result-rank">#${idx + 1}</span>
+                        <span class="result-disease">${r.disease.replace(/_/g, " ")}</span>
+                        <span class="risk-badge" style="background:${r.risk_color}20;color:${r.risk_color};border:1px solid ${r.risk_color}40">
+                            ${r.risk_level}
+                        </span>
+                    </div>
+                    <p class="result-desc">${r.description}</p>
+                    <div class="probability-bar">
+                        <div class="prob-fill" style="width:${r.probability}%;background:${barColor}"></div>
+                    </div>
+                    <div class="probability-text">
+                        <span>${r.probability}% probability</span>
+                    </div>
+                    <div class="result-footer">
+                        ${r.prediction === 1 ? '<span class="tag-positive">Positive</span>' : '<span class="tag-negative">Negative</span>'}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            section.scrollIntoView({behavior: "smooth"});
+        }
+
+        async function loadModelInfo() {
+            try {
+                const resp = await fetch("/model-info");
+                const data = await resp.json();
+                const content = document.getElementById("model-comparison-content");
+                if (data.success) {
+                    let html = '<table class="model-table"><thead><tr>';
+                    html += '<th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1 Score</th><th>ROC-AUC</th>';
+                    html += '</tr></thead><tbody>';
+                    data.models.forEach(m => {
+                        html += `<tr>
+                            <td><strong>${m.name}</strong></td>
+                            <td>${(m.accuracy * 100).toFixed(1)}%</td>
+                            <td>${(m.precision * 100).toFixed(1)}%</td>
+                            <td>${(m.recall * 100).toFixed(1)}%</td>
+                            <td>${(m.f1 * 100).toFixed(1)}%</td>
+                            <td>${(m.roc_auc * 100).toFixed(1)}%</td>
+                        </tr>`;
+                    });
+                    html += '</tbody></table>';
+                    html += '<div class="chart-card" style="margin-top:24px"><h3 class="chart-title">Model Comparison</h3><div class="chart-container"><canvas id="modelBarChart"></canvas></div></div>';
+                    content.innerHTML = html;
+
+                    setTimeout(() => renderModelChart(data.models), 100);
+                }
+            } catch(err) {
+                document.getElementById("model-comparison-content").innerHTML = "Failed to load model info.";
+            }
+        }
+
+        function renderModelChart(models) {
+            const ctx = document.getElementById("modelBarChart");
+            if (!ctx) return;
+            if (modelChartInstance) modelChartInstance.destroy();
+
+            const metrics = ["accuracy", "precision", "recall", "f1", "roc_auc"];
+            const metricLabels = ["Accuracy", "Precision", "Recall", "F1 Score", "ROC-AUC"];
+            const palette = ["#00d4ff", "#ff9800", "#2ed573"];
+
+            modelChartInstance = new Chart(ctx.getContext("2d"), {
+                type: "bar",
+                data: {
+                    labels: metricLabels,
+                    datasets: models.map((m, i) => ({
+                        label: m.name,
+                        data: metrics.map(k => (m[k] * 100).toFixed(1)),
+                        backgroundColor: palette[i] + "99",
+                        borderColor: palette[i],
+                        borderWidth: 2,
+                        borderRadius: 4
+                    }))
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: "#e8ecf4", font: { size: 12 } }
+                        },
+                        tooltip: {
+                            backgroundColor: "#111640",
+                            titleColor: "#00d4ff",
+                            bodyColor: "#e8ecf4",
+                            borderColor: "#1e2a5e",
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}%`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: "#e8ecf4" } },
+                        y: {
+                            min: 0, max: 100,
+                            grid: { color: "rgba(30,42,94,0.5)" },
+                            ticks: { color: "#8892b0", callback: v => v + "%" }
+                        }
+                    }
+                }
+            });
+        }
+
+        function resetForm() {
+            document.getElementById("prediction-form").reset();
+            document.getElementById("results-section").style.display = "none";
+            document.getElementById("top-risk-alert").style.display = "none";
+            destroyCharts();
+            window.scrollTo({top: 0, behavior: "smooth"});
+        }
+    </script>
+</body>
+</html>
