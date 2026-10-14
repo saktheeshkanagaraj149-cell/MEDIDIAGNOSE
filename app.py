@@ -1,7 +1,12 @@
+# Updated load_model to lazily download model files from the GitHub raw URL when not present locally.
+# This lets us exclude large model artifacts from Vercel deployments using .vercelignore while
+# still allowing the app to fetch model files at runtime.
+
 import os
 import numpy as np
 import joblib
 from flask import Flask, render_template, request, jsonify
+import urllib.request
 
 app = Flask(__name__)
 
@@ -44,13 +49,53 @@ DISEASE_RISK_FACTORS = {
 }
 
 
+def _download_file(url, dest_path, timeout=30):
+    """Download a file using urllib and save to dest_path."""
+    try:
+        os.makedirs(os.path.dirname(dest_path), exist_ok=True)
+        urllib.request.urlretrieve(url, dest_path)
+    except Exception as e:
+        # raise a clearer error for callers
+        raise RuntimeError(f"Failed to download {url}: {e}")
+
+
 def load_model():
+    """Load model and preprocessor.
+
+    Priority:
+    1. Use local files under ./models if present (useful for local dev).
+    2. Otherwise download from the repository raw URL into /tmp and load from there.
+    """
     global model, preprocessor
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    model_path = os.path.join(base_dir, "models", "best_model.pkl")
-    preprocessor_path = os.path.join(base_dir, "models", "preprocessor.pkl")
-    model = joblib.load(model_path)
-    preprocessor = joblib.load(preprocessor_path)
+    local_model_path = os.path.join(base_dir, "models", "best_model.pkl")
+    local_preproc_path = os.path.join(base_dir, "models", "preprocessor.pkl")
+
+    # Prefer local files if they exist (development / CI).
+    if os.path.exists(local_model_path) and os.path.exists(local_preproc_path):
+        model = joblib.load(local_model_path)
+        preprocessor = joblib.load(local_preproc_path)
+        return
+
+    # Otherwise download to a writable temporary directory (serverless environment).
+    tmp_model = "/tmp/best_model.pkl"
+    tmp_preproc = "/tmp/preprocessor.pkl"
+
+    if not (os.path.exists(tmp_model) and os.path.exists(tmp_preproc)):
+        owner = "saktheeshkanagaraj149-cell"
+        repo = "MEDIDIAGNOSE"
+        branch = "main"
+        raw_base = f"https://raw.githubusercontent.com/{owner}/{repo}/{branch}/models"
+
+        try:
+            _download_file(f"{raw_base}/best_model.pkl", tmp_model)
+            _download_file(f"{raw_base}/preprocessor.pkl", tmp_preproc)
+        except Exception as e:
+            # bubble up a helpful message that the serverless function can return
+            raise RuntimeError(f"Could not obtain model artifacts: {e}")
+
+    model = joblib.load(tmp_model)
+    preprocessor = joblib.load(tmp_preproc)
 
 
 @app.route("/")
@@ -204,5 +249,6 @@ def model_info():
 
 
 if __name__ == "__main__":
-    load_model()
+    # Do not eagerly download model on process start in serverless environments;
+    # models will be loaded lazily when the first request arrives.
     app.run(debug=True, host="0.0.0.0", port=5000)
