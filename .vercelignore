@@ -1,0 +1,28 @@
+# Vercel ignore file to exclude large artifacts from deployments
+# Prevent model artifacts, generated outputs and large static assets from being uploaded
+
+models/
+outputs/
+data/
+*.pkl
+*.h5
+*.pt
+*.onnx
+*.bin
+*.ckpt
+*.tar.gz
+*.zip
+*.png
+*.jpg
+*.jpeg
+*.html
+*.csv
+
+# Optional: ignore local virtualenvs and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Keep config files
+!vercel.json
